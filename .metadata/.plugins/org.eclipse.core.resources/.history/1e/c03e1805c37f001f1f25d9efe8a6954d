@@ -1,0 +1,54 @@
+package com.example.demo.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entity.Students;
+import com.example.demo.repository.StudentRepo;
+
+
+@RestController
+@CrossOrigin(origins = "http://localhost:4200/")
+@RequestMapping("/api/stu")
+
+public class StudentController {
+    
+    @Autowired
+    private StudentRepo studentrepository;
+
+    @GetMapping
+    public List<Students> getAllStudents() {		
+        return studentrepository.findAll();		
+    }
+    
+    @PostMapping
+    public Students addStudent(@RequestBody Students student) {
+        return studentrepository.save(student);
+    }
+    
+    @GetMapping("/{id}")
+    public Optional<Students> getStudentById(@PathVariable long id) {
+        return studentrepository.findById((int) id);
+    }
+    
+    @PutMapping("/{id}")
+    public Students updateStudent(@PathVariable long id, @RequestBody Students studentDetails) {
+        Students student = studentrepository.findById((int) id).orElseThrow();
+        
+        student.setFirstName(studentDetails.getFirstName());
+        student.setLastName(studentDetails.getLastName());
+        student.setEmail(studentDetails.getEmail());
+        student.setGrade(studentDetails.getGrade());
+        student.setAttendance(studentDetails.getAttendance());
+        
+        return studentrepository.save(student);
+    }
+    
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable long id) {
+        studentrepository.deleteById((int) id);
+    }
+}

@@ -1,0 +1,43 @@
+package com.example.demo.controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.entity.Students;
+import com.example.demo.repository.StudentRepo;
+import com.example.demo.service.ReportService;
+
+import java.io.InputStream;
+
+@RestController
+public class ReportController {
+
+    @Autowired
+    private ReportService reportService;
+
+    @Autowired
+    private StudentRepo studentRepository;
+
+    @GetMapping("/students/{id}/report")
+    public ResponseEntity<byte[]> downloadStudentReport(@PathVariable Integer id) {
+        // Fetching student using findById() provided by JpaRepository
+        Students student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        InputStream pdfStream = reportService.generateStudentReport(student);
+
+        byte[] pdfBytes = pdfStream.readAllBytes();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "student_report.pdf");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(pdfBytes);
+    }
+}

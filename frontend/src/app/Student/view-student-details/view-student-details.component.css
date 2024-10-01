@@ -1,0 +1,44 @@
+    /* Centering and padding */
+    .col-md-6 {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    /* Card styling */
+    .card {
+        border: none;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Label and content spacing */
+    label {
+        font-size: 1.1rem;
+        margin-right: 10px;
+    }
+
+    span {
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+    /* Badge for Completed status */
+    .badge {
+        padding: 0.5em 0.75em;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+
+    /* Completed status colors */
+    .bg-success {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .bg-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }

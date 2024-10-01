@@ -1,0 +1,51 @@
+<div class="col-md-6 offset-md-3">
+    <h3 class="text-center mb-4">Add Student</h3>
+  
+    <form (ngSubmit)="onSubmit()" class="p-4 shadow-sm rounded bg-light">
+  
+        <!-- First Name Field -->
+        <div class="form-group mb-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="firstName" name="firstName" 
+                 placeholder="Enter first Name" [(ngModel)]="student.firstName" required>
+        </div>
+      
+        <!-- Last Name Field -->
+        <div class="form-group mb-3">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="lastName" name="lastName" 
+                 placeholder="Enter last Name" [(ngModel)]="student.lastName" required>
+        </div>
+      
+        <!-- Email Field -->
+        <div class="form-group mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" 
+                 placeholder="Enter email" [(ngModel)]="student.email" required>
+        </div>
+      
+        <!-- Grade Field -->
+        <div class="form-group mb-3">
+          <label for="grade" class="form-label">Grade</label>
+          <input type="text" class="form-control" id="grade" name="grade" 
+                 placeholder="Enter grade" [(ngModel)]="student.grade" required>
+        </div>
+      
+        <!-- Attendance Field -->
+        <div class="form-group mb-3">
+          <label for="attendance" class="form-label">Attendance</label>
+          <select class="form-select" id="attendance" name="attendance" 
+                  [(ngModel)]="student.attendance" required>
+            <option value="">Select attendance status</option>
+            <option [value]="'Present'">Present</option>
+            <option [value]="'Absent'">Absent</option>
+          </select>
+        </div>
+      
+        <!-- Submit Button -->
+        <button class="btn btn-success w-100" type="submit">Submit</button>
+      
+      </form>
+      
+  </div>
+  

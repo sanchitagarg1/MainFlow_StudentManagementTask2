@@ -1,0 +1,25 @@
+form {
+    background-color: #f8f9fa; 
+    border-radius: 8px; 
+  }
+  
+  .form-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .form-control:focus {
+    border-color: #28a745; 
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+  }
+  
+  .btn-success {
+    background-color: #28a745; 
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838; 
+  }
+  

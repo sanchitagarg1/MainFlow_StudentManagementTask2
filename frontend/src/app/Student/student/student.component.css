@@ -1,0 +1,58 @@
+   /* Table container */
+   .col-md-10 {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Table header styling */
+thead th {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Table data alignment */
+tbody td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Button spacing and size */
+.btn-sm {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+}
+
+/* Button margin-right */
+.me-2 {
+    margin-right: 10px;
+}
+
+/* Badge for completed status */
+.badge {
+    padding: 0.5em 0.75em;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+
+/* Status color badges */
+.bg-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.bg-danger {
+    background-color: #dc3545;
+    color: white;
+}

@@ -1,0 +1,90 @@
+package com.example.demo.controller;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entity.Students;
+import com.example.demo.repository.StudentRepo;
+import com.example.demo.service.ReportService;
+
+
+
+@RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("/api/stu")
+
+public class StudentController {
+    
+    @Autowired
+    private StudentRepo studentrepository;
+    
+    @Autowired
+    private ReportService reportService;
+
+    @GetMapping
+    public List<Students> getAllStudents() {		
+        return studentrepository.findAll();		
+    }
+    
+    @PostMapping
+    public Students addStudent(@RequestBody Students student) {
+        return studentrepository.save(student);
+    }
+    
+    @GetMapping("/{id}")
+    public Optional<Students> getStudentById(@PathVariable long id) {
+        return studentrepository.findById((int) id);
+    }
+    
+    @PutMapping("/{id}")
+    public Students updateStudent(@PathVariable long id, @RequestBody Students studentDetails) {
+        Students student = studentrepository.findById((int) id).orElseThrow();
+        
+        student.setFirstName(studentDetails.getFirstName());
+        student.setLastName(studentDetails.getLastName());
+        student.setEmail(studentDetails.getEmail());
+        student.setGrade(studentDetails.getGrade());
+        student.setAttendance(studentDetails.getAttendance());
+        
+        return studentrepository.save(student);
+    }
+    
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable long id) {
+        studentrepository.deleteById((int) id);
+    }
+    
+    
+    
+    @GetMapping("/{id}/report")
+    public ResponseEntity<byte[]> downloadStudentReport(@PathVariable int id) throws IOException {
+        // Fetch the student by ID
+        Students student = studentrepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        // Call the ReportService to generate the report
+        InputStream pdfStream = reportService.generateStudentReport(student);
+        
+        byte[] pdfBytes = pdfStream.readAllBytes(); // Convert the InputStream to byte[]
+
+        // Create response headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "student_report_" + student.getId() + ".pdf");
+
+        // Return the PDF as a downloadable file
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(pdfBytes);
+    }
+    
+}
