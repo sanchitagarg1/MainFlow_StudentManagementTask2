@@ -21,9 +21,17 @@ export class UpdateStudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    this.studentService.getStudentById(this.id).subscribe( data => {
-      this.student = data;
-    });
+    this.studentService.getStudentById(this.id).subscribe(
+      data => {
+        this.student = data;
+      },
+      error => {
+        console.error('Error fetching student:', error);
+        if (error.status === 400) {
+          alert('Validation Error: ' + JSON.stringify(error.error));
+        }
+      }
+    );
   }
 
   goToStudentList(){

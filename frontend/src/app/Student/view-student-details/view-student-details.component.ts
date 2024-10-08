@@ -19,12 +19,19 @@ export class ViewStudentDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Getting the 'id' from the route parameters
     this.id = this.route.snapshot.params['id'];
-
-    // Fetching the student details by ID
-    this.studentService.getStudentById(this.id).subscribe(data => {
-      this.student = data;
-    });
+    this.studentService.getStudentById(this.id).subscribe(
+      data => {
+        this.student = data;
+      },
+      error => {
+        console.error('Error fetching student details:', error);
+        if (error.status === 400) {
+          alert('Validation Error: ' + JSON.stringify(error.error));
+        }
+      }
+    );
   }
+
+  
 }

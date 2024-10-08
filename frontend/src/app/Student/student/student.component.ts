@@ -24,16 +24,19 @@ export class StudentComponent implements OnInit {
   // Get the list of students
   getStudents() {
     this.studentService.getStudents().subscribe(
-        (data: Student[]) => {
-            this.students = data;
-        },
-        (error) => {
-            console.error('Error fetching students:', error);
-            console.error('Error status:', error.status);
-            console.error('Error response body:', error.error);
+      (data: Student[]) => {
+        this.students = data;
+      },
+      (error) => {
+        console.error('Error fetching students:', error);
+        if (error.status === 400) {
+          
+          alert('Validation Error: ' + JSON.stringify(error.error));
         }
+      }
     );
-}
+  }
+  
 
   // Navigate to update the selected student
   updateStudent(id: number) {

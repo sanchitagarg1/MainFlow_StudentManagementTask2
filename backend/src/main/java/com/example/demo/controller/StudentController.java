@@ -29,6 +29,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 
 
@@ -50,7 +51,7 @@ public class StudentController {
     }
     
     @PostMapping
-    public Students addStudent(@RequestBody Students student) {
+    public Students addStudent(@Valid @RequestBody Students student) {
         return studentrepository.save(student);
     }
     
